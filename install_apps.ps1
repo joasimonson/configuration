@@ -52,3 +52,13 @@ choco install windirstat -y
 
 # Process explorer
 choco install procexp -y
+
+
+# Programas inutilizados Windows
+remove-AppxPackage Microsoft.ZuneMusic_10.19031.11411.0_x64__8wekyb3d8bbwe
+remove-AppxPackage Microsoft.WindowsMaps_5.1906.1972.0_x64__8wekyb3d8bbwe
+remove-AppxPackage Microsoft.Messaging_4.1901.10241.1000_x64__8wekyb3d8bbwe
+remove-AppxPackage Microsoft.People_10.1902.633.0_x64__8wekyb3d8bbwe
+
+# ExecutionPolicy
+Set-Executionpolicy -Scope CurrentUser -ExecutionPolicy UnRestricted
