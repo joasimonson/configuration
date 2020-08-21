@@ -16,7 +16,8 @@ choco install vscode-gitlens
 choco install ilspy -y
 
 # SQL Management Studio
-choco install sql-server-management-studio -y
+# choco install sql-server-management-studio -y
+choco install qbittorrent
 
 # Git
 choco install git -y
