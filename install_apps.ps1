@@ -9,8 +9,7 @@ choco install powershell-core
 choco install vscode -y
 choco install ilspy -y
 choco install postman -y
-
-# choco install azure-data-studio
+choco install azure-data-studio
 
 choco install docker-desktop -y
 
@@ -20,7 +19,7 @@ choco install poshgit -y
 choco install yarn -y
 
 choco install nodejs -y
-
+choco install nvm -y
 
 # Aux
 choco install notepadplusplus -y
