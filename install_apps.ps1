@@ -21,6 +21,8 @@ choco install yarn -y
 choco install nodejs -y
 choco install nvm -y
 
+choco install dotnetcore-sdk -y
+
 # Aux
 choco install notepadplusplus -y
 choco install foxitreader -y
