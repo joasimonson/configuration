@@ -52,6 +52,11 @@ remove-AppxPackage Microsoft.Messaging_4.1901.10241.1000_x64__8wekyb3d8bbwe
 remove-AppxPackage Microsoft.People_10.1902.633.0_x64__8wekyb3d8bbwe
 
 
+## Features
+
+# Telnet
+Enable-WIndowsOptionalFeature -Online -FeatureName TelnetClient
+
 # WSL 2 - https://docs.microsoft.com/en-US/windows/wsl/install-win10
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
