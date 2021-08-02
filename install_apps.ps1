@@ -24,6 +24,7 @@ choco install nvm -y
 choco install dotnetcore-sdk -y
 
 # Aux
+choco install powertoys -y
 choco install notepadplusplus -y
 choco install foxitreader -y
 choco install 7zip -y
