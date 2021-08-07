@@ -29,8 +29,9 @@ choco install notepadplusplus -y
 choco install foxitreader -y
 choco install 7zip -y
 choco install paint.net -y
-choco install windirstat -y # WindirStat (Análise de arquivos)
-choco install procexp -y # Process explorer
+choco install windirstat -y
+choco install procexp -y
+choco install cpu-z -y
 choco install qbittorrent
 
 
