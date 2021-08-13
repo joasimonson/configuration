@@ -12,6 +12,7 @@ choco install postman -y
 choco install azure-data-studio -y
 
 choco install docker-desktop -y
+choco install dive -y
 
 choco install git -y
 choco install poshgit -y
