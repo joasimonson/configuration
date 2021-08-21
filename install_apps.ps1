@@ -68,6 +68,10 @@ wsl --set-default-version 2
 # Install linux distro
 
 
+# gitk dark-mode
+mkdir -p ~/.config/git
+curl -o ~/.config/git/gitk https://raw.githubusercontent.com/dracula/gitk/master/gitk
+
 # Assign git commits
 choco install gnupg -y
 
