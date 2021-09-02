@@ -15,16 +15,23 @@ choco install azure-data-studio -y
 choco install docker-desktop -y
 choco install dive -y
 
+choco install git -y
 choco install nodejs -y
 choco install nvm -y
 choco install dotnetcore-sdk -y
 choco install powershell-core -y
 
-# git
-choco install git -y
-choco install poshgit -y
 
-# fancy terminal
+# posh terminal
+choco install cascadiacodepl -y
+
+Install-Module posh-git -Scope CurrentUser
+Install-Module oh-my-posh -Scope CurrentUser
+
+Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck # Powershell core
+
+curl -o $PROFILE https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/Microsoft.PowerShell_profile.ps1
+
 mkdir -p ~/.config/terminal
 curl -o ~/.config/terminal/pwsh.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/pwsh.png
 curl -o ~/.config/terminal/ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
@@ -33,9 +40,9 @@ curl -o ~/.config/terminal/ubuntu.png https://raw.githubusercontent.com/joasimon
 mkdir -p ~/.config/git
 curl -o ~/.config/git/gitk https://raw.githubusercontent.com/dracula/gitk/master/gitk
 
-# notepad++
+# notepad++ dracula
 choco install notepadplusplus -y
-curl -o ($env:AppData + "\Notepad++\themes\Dracula.xml") https://raw.githubusercontent.com/dracula/notepad-plus-plus/master/Dracula.xml
+curl -o $env:AppData\Notepad++\themes\Dracula.xml https://raw.githubusercontent.com/dracula/notepad-plus-plus/master/Dracula.xml
 # Settings > Style Configurator
 
 # Tools
