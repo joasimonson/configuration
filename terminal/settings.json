@@ -57,6 +57,14 @@
         {
             "command": "closePane",
             "keys": "ctrl+w"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "keys": "ctrl+shift+k"
         }
     ],
     "copyFormatting": "none",
@@ -68,10 +76,7 @@
         {
             "acrylicOpacity": 0.80000000000000004,
             "colorScheme": "Monokai Night",
-            "font": 
-            {
-                "face": "Cascadia Code PL"
-            },
+            "fontFace": "Cascadia Code PL",
             "startingDirectory": "C:\\dev\\",
             "useAcrylic": true,
             "backgroundImageAlignment": "center",
