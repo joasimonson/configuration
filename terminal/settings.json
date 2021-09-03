@@ -75,7 +75,7 @@
         "defaults": 
         {
             "acrylicOpacity": 0.80000000000000004,
-            "colorScheme": "Monokai Night",
+            "colorScheme": "Custom",
             "fontFace": "Cascadia Code PL",
             "startingDirectory": "C:\\dev\\",
             "useAcrylic": true,
@@ -118,6 +118,7 @@
     "schemes": 
     [
         {
+            "name": "Custom",
             "background": "#1F1F1F",
             "black": "#1F1F1F",
             "blue": "#6699DF",
@@ -133,7 +134,6 @@
             "cyan": "#E69F66",
             "foreground": "#F8F8F8",
             "green": "#A6E22E",
-            "name": "Monokai Night",
             "purple": "#AE81FF",
             "red": "#F92672",
             "selectionBackground": "#FFFFFF",
