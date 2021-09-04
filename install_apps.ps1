@@ -1,8 +1,14 @@
-# ExecutionPolicy
+# Settings
+$mainPath = (Get-Location).ToString() + "\"
+$username = "joasimonson"
+$email = "joasimonson@hotmail.com"
+
 Set-Executionpolicy -Scope CurrentUser -ExecutionPolicy UnRestricted
+Set-ExecutionPolicy Bypass -Scope Process -Force
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 # Chocolatey Install
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 # Dev
 mkdir c:\dev
@@ -24,31 +30,46 @@ choco install powershell-core -y
 
 # posh terminal
 choco install cascadiacodepl -y
-
 Install-Module posh-git -Scope CurrentUser
 Install-Module oh-my-posh -Scope CurrentUser
-
 Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck # Powershell core
-
 curl -o $PROFILE https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/Microsoft.PowerShell_profile.ps1
 
-mkdir -p ~/.config/terminal
-curl -o ~/.config/terminal/pwsh.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/pwsh.png
-curl -o ~/.config/terminal/ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
+$terminalConfigFolder = "~/.config/terminal"
+mkdir -p $terminalConfigFolder
+curl -o $terminalConfigFolder/pwsh.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/pwsh.png
+curl -o $terminalConfigFolder/ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
 
 # gitk dracula
-mkdir -p ~/.config/git
-curl -o ~/.config/git/gitk https://raw.githubusercontent.com/dracula/gitk/master/gitk
+$gitkConfigFolder = "~/.config/git"
+mkdir -p $gitkConfigFolder
+curl -o $gitkConfigFolder/gitk https://raw.githubusercontent.com/dracula/gitk/master/gitk
 
 # notepad++ dracula
 choco install notepadplusplus -y
 curl -o $env:AppData\Notepad++\themes\Dracula.xml https://raw.githubusercontent.com/dracula/notepad-plus-plus/master/Dracula.xml
 # Settings > Style Configurator
 
+# Zip
+choco install 7zip -y
+[Environment]::SetEnvironmentVariable("Path", $env:Path + $env:programfiles + "\7-Zip", [System.EnvironmentVariableTarget]::Machine)
+
+# Capitaine cursors
+$capitaine_folder = "capitaine-cursors\"
+mkdir -p $capitaine_folder
+$capitaine_files = Invoke-WebRequest 'https://api.github.com/repos/keeferrourke/capitaine-cursors/contents/.windows?ref=master' | ConvertFrom-Json
+foreach ($file in $capitaine_files) {
+    curl -o ($capitaine_folder + $file.name) $file.download_url
+}
+cd $env:SystemRoot\System32
+InfDefaultInstall ($mainPath + $capitaine_folder + "\install.inf")
+cd $mainPath
+rmdir -r -Force $capitaine_folder
+# Mouse Properties > Pointers > Set "Capitaine Cursors"
+
 # Tools
 choco install powertoys -y
 choco install foxitreader -y
-choco install 7zip -y
 choco install vlc -y
 choco install paint.net -y
 choco install windirstat -y
@@ -81,19 +102,22 @@ wsl --set-default-version 2
 
 # Assign git commits
 choco install gnupg -y
-
-[Environment]::SetEnvironmentVariable("Path", $env:Path + ${env:programfiles(x86)} + "\GnuPG\bin", [System.EnvironmentVariableTarget]::Machine)
+$pathGpg = ${env:programfiles(x86)} + "\GnuPG\bin"
+[Environment]::SetEnvironmentVariable("Path", $env:Path + $pathGpg, [System.EnvironmentVariableTarget]::Machine)
 
 gpg --full-generate-key
-gpg --list-secret-keys --keyid-format LONG joasimonson@hotmail.com
-gpg --armor --export [Secret Key]
+gpg --list-secret-keys --keyid-format LONG $email
+$secretKey = (gpg --list-secret-keys --keyid-format LONG $email | findstr sec).SubString(14, 16)
+# $secretKey = gpg --list-secret-keys --keyid-format LONG $email | Select-String -Pattern sec -Context 0,1 | ForEach-Object { $_.Context.PostContext.Trim() } (Get full key)
+gpg --armor --export $secretKey
 
-git config --global user.name "joasimonson"
-git config --global user.email joasimonson@hotmail.com
-git config --global user.signingkey [Secret Key]
-git config --global gpg.program (${env:programfiles(x86)} + "\GnuPG\bin\gpg.exe")
+git config --global user.name $username
+git config --global user.email $email
+git config --global user.signingkey $secretKey
+git config --global gpg.program ($pathGpg + "\gpg.exe")
 git config --global commit.gpgsign true
 
+Remove-Variable secretKey
 
 # Remove windows programs default
 remove-AppxPackage Microsoft.ZuneMusic_10.19031.11411.0_x64__8wekyb3d8bbwe
