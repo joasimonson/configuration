@@ -1,8 +1,4 @@
 # Settings
-$mainPath = (Get-Location).ToString() + "\"
-$username = "joasimonson"
-$email = "joasimonson@hotmail.com"
-
 Set-Executionpolicy -Scope CurrentUser -ExecutionPolicy UnRestricted
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -40,6 +36,13 @@ mkdir -p $terminalConfigFolder
 curl -o $terminalConfigFolder/pwsh.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/pwsh.png
 curl -o $terminalConfigFolder/ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
 
+# git aliases
+git config --global alias.rprune "remote prune origin"
+
+# git linux tools
+$linuxTools = "$env:programfiles\Git\usr\bin"
+[Environment]::SetEnvironmentVariable("Path", "$env:Path;$linuxTools", [System.EnvironmentVariableTarget]::Machine)
+
 # gitk dracula
 $gitkConfigFolder = "~/.config/git"
 mkdir -p $gitkConfigFolder
@@ -52,17 +55,19 @@ curl -o $env:AppData\Notepad++\themes\Dracula.xml https://raw.githubusercontent.
 
 # Zip
 choco install 7zip -y
-[Environment]::SetEnvironmentVariable("Path", $env:Path + $env:programfiles + "\7-Zip", [System.EnvironmentVariableTarget]::Machine)
+$path7zip = "$env:programfiles\7-Zip"
+[Environment]::SetEnvironmentVariable("Path", "$env:Path;$path7zip", [System.EnvironmentVariableTarget]::Machine)
 
 # Capitaine cursors
-$capitaine_folder = "capitaine-cursors\"
+$capitaine_folder = "capitaine-cursors"
 mkdir -p $capitaine_folder
 $capitaine_files = Invoke-WebRequest 'https://api.github.com/repos/keeferrourke/capitaine-cursors/contents/.windows?ref=master' | ConvertFrom-Json
 foreach ($file in $capitaine_files) {
-    curl -o ($capitaine_folder + $file.name) $file.download_url
+    curl -o ($capitaine_folder + "\" + {$file.name}) $file.download_url
 }
+$mainPath = (Get-Location).ToString()
 cd $env:SystemRoot\System32
-InfDefaultInstall ($mainPath + $capitaine_folder + "\install.inf")
+InfDefaultInstall ("$mainPath\$capitaine_folder\install.inf")
 cd $mainPath
 rmdir -r -Force $capitaine_folder
 # Mouse Properties > Pointers > Set "Capitaine Cursors"
@@ -101,6 +106,9 @@ wsl --set-default-version 2
 
 
 # Assign git commits
+$username = "joasimonson"
+$email = "joasimonson@hotmail.com"
+
 choco install gnupg -y
 $pathGpg = ${env:programfiles(x86)} + "\GnuPG\bin"
 [Environment]::SetEnvironmentVariable("Path", $env:Path + $pathGpg, [System.EnvironmentVariableTarget]::Machine)
