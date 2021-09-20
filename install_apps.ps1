@@ -7,7 +7,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 ## dev tools
-mkdir c:\dev
+mkdir -p c:\dev
 
 choco install visualstudio2022community-preview --pre
 choco install dotnetcore-sdk -y
@@ -31,13 +31,13 @@ Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck # 
 
 curl -o $PROFILE https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/Microsoft.PowerShell_profile.ps1
 
-$terminalConfigFolder = "~/.config/terminal"
+$terminalConfigFolder = "$home\.config\terminal"
 mkdir -p $terminalConfigFolder
-curl -o $terminalConfigFolder/pwsh.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/pwsh.png
-curl -o $terminalConfigFolder/powershell.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/powershell.png
-curl -o $terminalConfigFolder/ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
-curl -o $terminalConfigFolder/azure.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/azure.png
-curl -o $terminalConfigFolder/cmd.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/cmd.png
+curl -o $terminalConfigFolder\pwsh.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/pwsh.png
+curl -o $terminalConfigFolder\powershell.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/powershell.png
+curl -o $terminalConfigFolder\ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
+curl -o $terminalConfigFolder\azure.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/azure.png
+curl -o $terminalConfigFolder\cmd.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/cmd.png
 
 refreshenv
 
@@ -67,6 +67,8 @@ git config --global alias.rprune "remote prune origin"
 choco install gnupg -y
 $pathGpg = "${env:programfiles(x86)}\GnuPG\bin"
 [Environment]::SetEnvironmentVariable("Path", "$env:Path;$pathGpg", [System.EnvironmentVariableTarget]::Machine)
+
+refreshenv
 
 gpg --full-generate-key
 gpg --list-secret-keys --keyid-format LONG $email
