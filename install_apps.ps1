@@ -18,7 +18,6 @@ choco install ilspy -y
 choco install docker-desktop -y
 choco install dive -y
 
-
 ## terminal
 choco install powershell-core -y
 
@@ -28,6 +27,9 @@ choco install cascadiacodepl -y
 Install-Module posh-git -Scope CurrentUser
 Install-Module oh-my-posh -Scope CurrentUser
 Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck # powershell core
+
+# completions
+Install-Module DockerCompletion -Scope CurrentUser
 
 curl -o $PROFILE https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/Microsoft.PowerShell_profile.ps1
 
