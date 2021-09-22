@@ -5,6 +5,9 @@ Import-Module posh-git
 Import-Module oh-my-posh
 #Set-PoshPrompt -Theme agnoster
 
+** completions
+Import-Module DockerCompletion
+
 function DeleteAllGoneBranches() {
 	git branch --list --format "%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)" | tr '[:space:]' ' ' | xargs git branch -D
 }
