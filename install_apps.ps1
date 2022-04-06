@@ -6,19 +6,13 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 ## chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-## dev tools
-mkdir -p c:\dev
-
-choco install visualstudio2022community-preview --pre
-choco install dotnetcore-sdk -y
-choco install vscode -y
-choco install postman -y
-choco install ilspy -y
-
-choco install docker-desktop -y
-choco install dive -y
+## hardare
+choco install lenovo-thinkvantage-system-update -y
+choco install logitech-options -y
 
 ## terminal
+mkdir -p c:\dev
+
 choco install powershell-core -y
 
 # posh
@@ -119,8 +113,19 @@ cd $mainPath
 rimraf $capitaine_folder
 #(Manual) > Mouse Properties > Pointers > Set "Capitaine Cursors"
 
+## dev tools
+choco install vscode -y
+choco install visualstudio2022community-preview --pre
+choco install dotnetcore-sdk -y
+
+choco install docker-desktop -y
+choco install dive -y
+
+# optional
+choco install postman -y
+choco install ilspy -y
+
 ## tools
-choco install powertoys -y
 choco install foxitreader -y
 choco install vlc -y
 
@@ -129,13 +134,10 @@ choco install windirstat -y
 choco install procexp -y
 choco install cpu-z -y
 choco install qbittorrent -y
-
-# hardare
-choco install logitech-options -y
+choco install powertoys -y
 
 # work
 choco install microsoft-teams -y
-
 
 ## features
 
@@ -148,10 +150,3 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 #(Manual) > linux kernel update package
 wsl --set-default-version 2
 #(Manual) > install linux distro
-
-
-# remove windows programs default
-remove-AppxPackage Microsoft.ZuneMusic_10.19031.11411.0_x64__8wekyb3d8bbwe
-remove-AppxPackage Microsoft.WindowsMaps_5.1906.1972.0_x64__8wekyb3d8bbwe
-remove-AppxPackage Microsoft.Messaging_4.1901.10241.1000_x64__8wekyb3d8bbwe
-remove-AppxPackage Microsoft.People_10.1902.633.0_x64__8wekyb3d8bbwe
