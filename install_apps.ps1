@@ -18,12 +18,12 @@ choco install powershell-core -y
 # posh
 choco install cascadiacodepl -y
 
-Install-Module posh-git -Scope CurrentUser
-Install-Module oh-my-posh -Scope CurrentUser
+Install-Module posh-git -Scope CurrentUser -Force
+Install-Module oh-my-posh -Scope CurrentUser -Force
 Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck # powershell core
 
 # completions
-Install-Module DockerCompletion -Scope CurrentUser
+Install-Module DockerCompletion -Scope CurrentUser -Force
 
 curl -o $PROFILE https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/Microsoft.PowerShell_profile.ps1
 
@@ -34,8 +34,6 @@ curl -o $terminalConfigFolder\powershell.png https://raw.githubusercontent.com/j
 curl -o $terminalConfigFolder\ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
 curl -o $terminalConfigFolder\azure.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/azure.png
 curl -o $terminalConfigFolder\cmd.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/cmd.png
-
-refreshenv
 
 ## node - npm
 choco install nvm -y
