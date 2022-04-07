@@ -6,14 +6,31 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 ## chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
+winget source add --accept-source-agreements --name msstore https://storeedgefd.dsx.mp.microsoft.com/v9.0
+winget source add --accept-source-agreements --name winget https://winget.azureedge.net/cache
+
+winget uninstall cortana
+winget uninstall --id Microsoft.OneDrive
+winget uninstall --id Microsoft.WindowsNotepad_8wekyb3d8bbwe
+winget uninstall --id Microsoft.OneDriveSync_8wekyb3d8bbwe
+winget uninstall --id Microsoft.People_8wekyb3d8bbwe
+winget uninstall --id Microsoft.GetHelp_8wekyb3d8bbwe
+winget uninstall --id Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe
+winget uninstall --id Microsoft.WindowsMap_8wekyb3d8bbwe
+winget uninstall --id Microsoft.ZuneMusic_8wekyb3d8bbwe
+winget uninstall --id Microsoft.Messaging_8wekyb3d8bbwe
+
+del "$env:SystemRoot\notepad.exe"
+del "$env:SystemRoot\System32\notepad.exe" # permissions needed
+
 ## hardare
-winget install -e --id Lenovo.SystemUpdate --accept-package-agreements --accept-source-agreements
-winget install -e --id Logitech.Options --accept-package-agreements --accept-source-agreements
+winget install -e --id Lenovo.SystemUpdate --silent
+winget install -e --id Logitech.Options --silent
 
 ## terminal
 mkdir -p c:\dev
 
-winget install --id Microsoft.Powershell --accept-package-agreements --accept-source-agreements
+winget install --id Microsoft.Powershell --silent
 
 # run pwsh core
 powershell -Command "Start-Process pwsh -Verb RunAs"
@@ -51,7 +68,7 @@ npm i -g iisexpress-proxy
 npm i -g rimraf
 
 ## git
-winget install -e --id Git.Git --accept-package-agreements --accept-source-agreements
+winget install -e --id Git.Git --silent
 
 $username = "joasimonson"
 $email = "joasimonson@hotmail.com"
@@ -66,7 +83,7 @@ $linuxTools = "$env:programfiles\Git\usr\bin"
 git config --global alias.rprune "remote prune origin"
 
 # git gpg - assign commits
-winget install -e --id GnuPG.GnuPG --accept-package-agreements --accept-source-agreements
+winget install -e --id GnuPG.GnuPG --silent
 
 gpg --full-generate-key
 gpg --list-secret-keys --keyid-format LONG $email
@@ -86,17 +103,25 @@ mkdir -p $gitkConfigPath
 curl -o $gitkConfigPath/gitk https://raw.githubusercontent.com/dracula/gitk/master/gitk
 
 ## notepad
-choco install notepadplusplus -y
+winget install -e --id Notepad++.Notepad++ --silent
 
 $notepad = "$env:programfiles\Notepad++"
 [Environment]::SetEnvironmentVariable("Path", "$env:Path;$notepad", [System.EnvironmentVariableTarget]::Machine)
+
+# set notepad++ to default
+$scriptShell = New-Object -comObject WScript.Shell
+$shortcut = $scriptShell.CreateShortcut("$env:SystemRoot\notepad.lnk")
+$shortcut.TargetPath = "$notepad\notepad++.exe"
+$shortcut.Save()
+rv scriptShell
+rv shortcut
 
 # notepad++ dracula
 curl -o $env:AppData\Notepad++\themes\Dracula.xml https://raw.githubusercontent.com/dracula/notepad-plus-plus/master/Dracula.xml
 #(Manual) > Settings > Style Configurator
 
 # zip
-choco install 7zip -y
+winget install 7zip.7zip --silent
 $path7zip = "$env:programfiles\7-Zip"
 [Environment]::SetEnvironmentVariable("Path", "$env:Path;$path7zip", [System.EnvironmentVariableTarget]::Machine)
 
@@ -113,10 +138,11 @@ InfDefaultInstall ("$mainPath\$capitainePath\install.inf")
 
 cd $mainPath
 rimraf $capitainePath
-#(Manual) > Mouse Properties > Pointers > Set "Capitaine Cursors"
+#(Manual) > Mouse Properties > Aditional mouse settings > Pointers > Set "Capitaine Cursors"
 
 ## dev tools
-choco install vscode -y
+winget install -e --id ScooterSoftware.BeyondCompare4 --silent
+winget install --id Microsoft.VisualStudioCode --silent
 choco install visualstudio2022community-preview --pre
 choco install dotnetcore-sdk -y
 
@@ -126,7 +152,6 @@ choco install dive -y
 # optional
 choco install postman -y
 choco install ilspy -y
-winget install -e --id ScooterSoftware.BeyondCompare4 --accept-package-agreements --accept-source-agreements
 
 ## tools
 choco install foxitreader -y
@@ -139,19 +164,14 @@ choco install cpu-z -y
 choco install qbittorrent -y
 
 # work
-winget install -e --id Microsoft.Teams --accept-package-agreements --accept-source-agreements
+winget install -e --id Microsoft.Teams --silent
 
 ## features
 
 # telnet
 Enable-WIndowsOptionalFeature -Online -FeatureName TelnetClient
 
-## WSL configuration
-winget install -e --id Canonical.Ubuntu --accept-package-agreements --accept-source-agreements
+## WSL configuration - https://docs.microsoft.com/en-US/windows/wsl/install-win10
+winget install -e --id Canonical.Ubuntu --silent
 
-# activation WSL 2 - https://docs.microsoft.com/en-US/windows/wsl/install-win10
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-#(Manual) > linux kernel update package
-wsl --set-default-version 2
-#(Manual) > install linux distro
+wsl --install
