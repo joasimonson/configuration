@@ -139,7 +139,7 @@ choco install cpu-z -y
 choco install qbittorrent -y
 
 # work
-choco install microsoft-teams -y
+winget install -e --id Microsoft.Teams --accept-package-agreements --accept-source-agreements
 
 ## features
 
