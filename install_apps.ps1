@@ -15,6 +15,9 @@ mkdir -p c:\dev
 
 winget install --id Microsoft.Powershell --accept-package-agreements --accept-source-agreements
 
+# run pwsh core
+powershell -Command "Start-Process pwsh -Verb RunAs"
+
 # completions
 Install-Module DockerCompletion -Scope CurrentUser -Force
 
