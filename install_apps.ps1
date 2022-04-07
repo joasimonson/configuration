@@ -78,7 +78,7 @@ git config --global commit.gpgsign true
 rv secretKey
 
 # gitk dracula
-$gitkConfigPath = "~/.config/git"
+$gitkConfigPath = "$home/.config/git"
 mkdir -p $gitkConfigPath
 curl -o $gitkConfigPath/gitk https://raw.githubusercontent.com/dracula/gitk/master/gitk
 
