@@ -172,6 +172,4 @@ winget install -e --id Microsoft.Teams --silent
 Enable-WIndowsOptionalFeature -Online -FeatureName TelnetClient
 
 ## WSL configuration - https://docs.microsoft.com/en-US/windows/wsl/install-win10
-winget install -e --id Canonical.Ubuntu --silent
-
 wsl --install
