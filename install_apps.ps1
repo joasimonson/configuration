@@ -7,13 +7,16 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 ## hardare
-choco install lenovo-thinkvantage-system-update -y
-choco install logitech-options -y
+winget install -e --id Lenovo.SystemUpdate --accept-package-agreements --accept-source-agreements
+winget install -e --id Logitech.Options --accept-package-agreements --accept-source-agreements
 
 ## terminal
 mkdir -p c:\dev
 
-choco install powershell-core -y
+winget install --id Microsoft.Powershell --accept-package-agreements --accept-source-agreements
+
+# completions
+Install-Module DockerCompletion -Scope CurrentUser -Force
 
 # posh
 choco install cascadiacodepl -y
@@ -22,28 +25,30 @@ Install-Module posh-git -Scope CurrentUser -Force
 Install-Module oh-my-posh -Scope CurrentUser -Force
 Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck # powershell core
 
-# completions
-Install-Module DockerCompletion -Scope CurrentUser -Force
+# profiles
+$windowsTerminalProfilePath = Resolve-Path -Path "$home\AppData\Local\Packages\Microsoft.WindowsTerminal*\LocalState"
+curl -o $windowsTerminalProfilePath\settings.json https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/settings.json
 
 curl -o $PROFILE https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/Microsoft.PowerShell_profile.ps1
 
-$terminalConfigFolder = "$home\.config\terminal"
-mkdir -p $terminalConfigFolder
-curl -o $terminalConfigFolder\pwsh.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/pwsh.png
-curl -o $terminalConfigFolder\powershell.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/powershell.png
-curl -o $terminalConfigFolder\ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
-curl -o $terminalConfigFolder\azure.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/azure.png
-curl -o $terminalConfigFolder\cmd.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/cmd.png
+$terminalConfigPath = "$home\.config\terminal"
+mkdir -p $terminalConfigPath
+curl -o $terminalConfigPath\pwsh.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/pwsh.png
+curl -o $terminalConfigPath\powershell.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/powershell.png
+curl -o $terminalConfigPath\ubuntu.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/ubuntu.png
+curl -o $terminalConfigPath\azure.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/azure.png
+curl -o $terminalConfigPath\cmd.png https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/cmd.png
 
 ## node - npm
 choco install nvm -y
-choco install nodejs -y
+nvm install lts
+nvm use lts
 
 npm i -g iisexpress-proxy
 npm i -g rimraf
 
 ## git
-choco install git -y
+winget install -e --id Git.Git --accept-package-agreements --accept-source-agreements
 
 $username = "joasimonson"
 $email = "joasimonson@hotmail.com"
@@ -58,11 +63,7 @@ $linuxTools = "$env:programfiles\Git\usr\bin"
 git config --global alias.rprune "remote prune origin"
 
 # git gpg - assign commits
-choco install gnupg -y
-$pathGpg = "${env:programfiles(x86)}\GnuPG\bin"
-[Environment]::SetEnvironmentVariable("Path", "$env:Path;$pathGpg", [System.EnvironmentVariableTarget]::Machine)
-
-refreshenv
+winget install -e --id GnuPG.GnuPG --accept-package-agreements --accept-source-agreements
 
 gpg --full-generate-key
 gpg --list-secret-keys --keyid-format LONG $email
@@ -77,9 +78,9 @@ git config --global commit.gpgsign true
 rv secretKey
 
 # gitk dracula
-$gitkConfigFolder = "~/.config/git"
-mkdir -p $gitkConfigFolder
-curl -o $gitkConfigFolder/gitk https://raw.githubusercontent.com/dracula/gitk/master/gitk
+$gitkConfigPath = "~/.config/git"
+mkdir -p $gitkConfigPath
+curl -o $gitkConfigPath/gitk https://raw.githubusercontent.com/dracula/gitk/master/gitk
 
 ## notepad
 choco install notepadplusplus -y
@@ -98,17 +99,17 @@ $path7zip = "$env:programfiles\7-Zip"
 
 # capitaine cursors
 $mainPath = "$pwd"
-$capitaine_url = 'https://api.github.com/repos/keeferrourke/capitaine-cursors/contents/.windows?ref=master'
-$capitaine_folder = "capitaine-cursors"
-mkdir -p $capitaine_folder
+$capitaineUrl = 'https://api.github.com/repos/keeferrourke/capitaine-cursors/contents/.windows?ref=master'
+$capitainePath = "capitaine-cursors"
+mkdir -p $capitainePath
 
-curl $capitaine_url | json | % { curl -o ($capitaine_folder + "\" + $_.name) $_.download_url }
+curl $capitaineUrl | json | % { curl -o ($capitainePath + "\" + $_.name) $_.download_url }
 
 cd $env:SystemRoot\System32
-InfDefaultInstall ("$mainPath\$capitaine_folder\install.inf")
+InfDefaultInstall ("$mainPath\$capitainePath\install.inf")
 
 cd $mainPath
-rimraf $capitaine_folder
+rimraf $capitainePath
 #(Manual) > Mouse Properties > Pointers > Set "Capitaine Cursors"
 
 ## dev tools
@@ -122,6 +123,7 @@ choco install dive -y
 # optional
 choco install postman -y
 choco install ilspy -y
+winget install -e --id ScooterSoftware.BeyondCompare4 --accept-package-agreements --accept-source-agreements
 
 ## tools
 choco install foxitreader -y
@@ -132,7 +134,6 @@ choco install windirstat -y
 choco install procexp -y
 choco install cpu-z -y
 choco install qbittorrent -y
-choco install powertoys -y
 
 # work
 choco install microsoft-teams -y
@@ -142,7 +143,10 @@ choco install microsoft-teams -y
 # telnet
 Enable-WIndowsOptionalFeature -Online -FeatureName TelnetClient
 
-# WSL 2 - https://docs.microsoft.com/en-US/windows/wsl/install-win10
+## WSL configuration
+winget install -e --id Canonical.Ubuntu --accept-package-agreements --accept-source-agreements
+
+# activation WSL 2 - https://docs.microsoft.com/en-US/windows/wsl/install-win10
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 #(Manual) > linux kernel update package
