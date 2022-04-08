@@ -172,4 +172,8 @@ winget install -e --id Microsoft.Teams --silent
 Enable-WIndowsOptionalFeature -Online -FeatureName TelnetClient
 
 ## WSL configuration - https://docs.microsoft.com/en-US/windows/wsl/install-win10
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+
 wsl --install
+
+sudo mkdir dev
