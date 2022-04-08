@@ -43,7 +43,7 @@ choco install cascadiacodepl -y
 
 Install-Module posh-git -Scope CurrentUser -Force
 Install-Module oh-my-posh -Scope CurrentUser -Force
-Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck # powershell core
+Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck
 
 # profiles
 $windowsTerminalProfilePath = Resolve-Path -Path "$home\AppData\Local\Packages\Microsoft.WindowsTerminal*\LocalState"
@@ -143,25 +143,24 @@ rimraf $capitainePath
 ## dev tools
 winget install -e --id ScooterSoftware.BeyondCompare4 --silent
 winget install --id Microsoft.VisualStudioCode --silent
-choco install visualstudio2022community-preview --pre
-choco install dotnetcore-sdk -y
+winget install --id Microsoft.VisualStudio.2022.Professional --silent
+winget install --id Microsoft.dotnet --silent
 
 winget install -e --id Docker.DockerDesktop --silent
 choco install dive -y
 
 # optional
-choco install postman -y
-choco install ilspy -y
+winget install -e --id Postman.Postman --silent
+winget install -e --id icsharpcode.ILSpy --silent
 
 ## tools
-choco install foxitreader -y
-choco install vlc -y
+winget install -e --id Foxit.FoxitReader --silent
+winget install -e --id VideoLAN.VLC --silent
 
 # optional
-choco install windirstat -y
-choco install procexp -y
-choco install cpu-z -y
-choco install qbittorrent -y
+winget install -e --id WinDirStat.WinDirStat --silent
+winget install -e --id CPUID.CPU-Z --silent
+winget install -e --id qBittorrent.qBittorrent --silent
 
 # work
 winget install -e --id Microsoft.Teams --silent
