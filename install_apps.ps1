@@ -146,7 +146,7 @@ winget install --id Microsoft.VisualStudioCode --silent
 choco install visualstudio2022community-preview --pre
 choco install dotnetcore-sdk -y
 
-choco install docker-desktop -y
+winget install -e --id Docker.DockerDesktop --silent
 choco install dive -y
 
 # optional
