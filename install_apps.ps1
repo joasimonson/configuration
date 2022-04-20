@@ -3,8 +3,18 @@ Set-Executionpolicy -Scope CurrentUser -ExecutionPolicy UnRestricted
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-## chocolatey
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+## windows settings
+powercfg -h on
+powercfg -x -monitor-timeout-ac 30
+powercfg -x -monitor-timeout-dc 10
+powercfg -x -disk-timeout-ac 0
+powercfg -x -disk-timeout-dc 0
+powercfg -x -standby-timeout-ac 0
+powercfg -x -standby-timeout-dc 0
+powercfg -x -hibernate-timeout-ac 0
+powercfg -x -hibernate-timeout-dc 0
+
+Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
 
 # winget source add --accept-source-agreements --name msstore https://storeedgefd.dsx.mp.microsoft.com/v9.0
 winget source add --accept-source-agreements --name msstore https://winget.azureedge.net/msstore
@@ -38,6 +48,9 @@ winget uninstall --id microsoft.windowscommunicationsapps_8wekyb3d8bbwe
 
 del "$env:SystemRoot\notepad.exe"
 del "$env:SystemRoot\System32\notepad.exe" # permissions needed
+
+## chocolatey
+iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 ## hardare
 winget install -e --id Lenovo.SystemUpdate --silent
