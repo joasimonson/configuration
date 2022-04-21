@@ -3,6 +3,17 @@ Set-Executionpolicy -Scope CurrentUser -ExecutionPolicy UnRestricted
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
+# disable features
+Disable-WindowsOptionalFeature -Online -FeatureName WindowsMediaPlayer
+
+# remove capabilities
+Remove-WindowsCapability -Online -Name Microsoft.Windows.WordPad~~~~0.0.1.0
+Remove-WindowsCapability -Online -Name Microsoft.Windows.Notepad.System~~~~0.0.1.0
+Remove-WindowsCapability -Online -Name Media.WindowsMediaPlayer~~~~0.0.12.0
+Remove-WindowsCapability -Online -Name Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0
+Remove-WindowsCapability -Online -Name Hello.Face.20134~~~~0.0.1.0
+Remove-WindowsCapability -Online -Name MathRecognizer~~~~0.0.1.0
+
 ## windows settings
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Clipboard -Name EnableClipboardHistory -Value 1 -Type Dword -Force
@@ -53,9 +64,6 @@ winget uninstall --id Microsoft.ZuneMusic_8wekyb3d8bbwe
 winget uninstall --id Microsoft.ZuneVideo_8wekyb3d8bbwe
 winget uninstall --id microsoft.windowscommunicationsapps_8wekyb3d8bbwe
 winget uninstall --id MicrosoftTeams_8wekyb3d8bbwe
-
-del "$env:SystemRoot\notepad.exe"
-del "$env:SystemRoot\System32\notepad.exe" # permissions needed
 
 ## chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -143,10 +151,10 @@ curl -o $gitkConfigPath/gitk https://raw.githubusercontent.com/dracula/gitk/mast
 ## notepad
 winget install -e --id Notepad++.Notepad++ --silent
 
+# set notepad++ to default
 $notepad = "$env:programfiles\Notepad++"
 [Environment]::SetEnvironmentVariable("Path", "$env:Path;$notepad", [System.EnvironmentVariableTarget]::Machine)
 
-# set notepad++ to default
 $scriptShell = New-Object -comObject WScript.Shell
 $shortcut = $scriptShell.CreateShortcut("$env:SystemRoot\notepad.lnk")
 $shortcut.TargetPath = "$notepad\notepad++.exe"
@@ -199,13 +207,11 @@ winget install -e --id qBittorrent.qBittorrent --silent
 
 # work
 winget install -e --id Microsoft.Teams --silent
+winget install "Company Portal" --silent
 
 ## features
 
-# telnet
 Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient
-
-## WSL configuration - https://docs.microsoft.com/en-US/windows/wsl/install-win10
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 
 wsl --install
