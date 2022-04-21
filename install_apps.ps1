@@ -35,9 +35,10 @@ powercfg -x -standby-timeout-dc 0
 powercfg -x -hibernate-timeout-ac 0
 powercfg -x -hibernate-timeout-dc 0
 
-# winget source add --accept-source-agreements --name msstore https://storeedgefd.dsx.mp.microsoft.com/v9.0
-winget source add --accept-source-agreements --name msstore https://winget.azureedge.net/msstore
-winget source add --accept-source-agreements --name winget https://winget.azureedge.net/cache
+winget source update
+
+## hardare
+winget install -e --id Logitech.Options --accept-source-agreements --silent
 
 winget uninstall cortana
 winget uninstall --id Microsoft.OneDrive
@@ -68,10 +69,6 @@ winget uninstall --id MicrosoftTeams_8wekyb3d8bbwe
 
 ## chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
-## hardare
-# winget install -e --id Lenovo.SystemUpdate --silent
-winget install -e --id Logitech.Options --silent
 
 ## terminal
 mkdir -p c:\dev
