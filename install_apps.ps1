@@ -4,6 +4,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 ## windows settings
+Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Clipboard -Name EnableClipboardHistory -Value 1 -Type Dword -Force
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value 0 -Type Dword -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0 -Type Dword -Force
+
 powercfg -h on
 powercfg -x -monitor-timeout-ac 30
 powercfg -x -monitor-timeout-dc 10
@@ -13,8 +18,6 @@ powercfg -x -standby-timeout-ac 0
 powercfg -x -standby-timeout-dc 0
 powercfg -x -hibernate-timeout-ac 0
 powercfg -x -hibernate-timeout-dc 0
-
-Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
 
 # winget source add --accept-source-agreements --name msstore https://storeedgefd.dsx.mp.microsoft.com/v9.0
 winget source add --accept-source-agreements --name msstore https://winget.azureedge.net/msstore
@@ -45,6 +48,7 @@ winget uninstall --id Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe
 winget uninstall --id Microsoft.ZuneMusic_8wekyb3d8bbwe
 winget uninstall --id Microsoft.ZuneVideo_8wekyb3d8bbwe
 winget uninstall --id microsoft.windowscommunicationsapps_8wekyb3d8bbwe
+winget uninstall --id MicrosoftTeams_8wekyb3d8bbwe
 
 del "$env:SystemRoot\notepad.exe"
 del "$env:SystemRoot\System32\notepad.exe" # permissions needed
@@ -53,7 +57,7 @@ del "$env:SystemRoot\System32\notepad.exe" # permissions needed
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 ## hardare
-winget install -e --id Lenovo.SystemUpdate --silent
+# winget install -e --id Lenovo.SystemUpdate --silent
 winget install -e --id Logitech.Options --silent
 
 ## terminal
@@ -90,6 +94,7 @@ curl -o $terminalConfigPath\cmd.png https://raw.githubusercontent.com/joasimonso
 
 ## node - npm
 choco install nvm -y
+# refresh
 nvm install lts
 nvm use lts
 
@@ -98,7 +103,7 @@ npm i -g rimraf
 
 ## git
 winget install -e --id Git.Git --silent
-
+# refresh
 $username = "joasimonson"
 $email = "joasimonson@hotmail.com"
 git config --global user.name $username
@@ -113,7 +118,7 @@ git config --global alias.rprune "remote prune origin"
 
 # git gpg - assign commits
 winget install -e --id GnuPG.GnuPG --silent
-
+# refresh
 gpg --full-generate-key
 gpg --list-secret-keys --keyid-format LONG $email
 $secretKey = gpg --list-secret-keys --keyid-format LONG $email | grep sec | cut -c 15-30
@@ -175,9 +180,6 @@ winget install --id Microsoft.VisualStudioCode --silent
 winget install --id Microsoft.VisualStudio.2022.Professional --silent
 winget install --id Microsoft.dotnet --silent
 
-winget install -e --id Docker.DockerDesktop --silent
-choco install dive -y
-
 # optional
 winget install -e --id Postman.Postman --silent
 winget install -e --id icsharpcode.ILSpy --silent
@@ -197,11 +199,16 @@ winget install -e --id Microsoft.Teams --silent
 ## features
 
 # telnet
-Enable-WIndowsOptionalFeature -Online -FeatureName TelnetClient
+Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient
 
 ## WSL configuration - https://docs.microsoft.com/en-US/windows/wsl/install-win10
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 
 wsl --install
 
+# after wsl
+winget install -e --id Docker.DockerDesktop --silent
+choco install dive -y
+
+# open linux distro
 sudo mkdir dev
