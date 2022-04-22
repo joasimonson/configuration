@@ -205,11 +205,13 @@ winget install -e --id CPUID.CPU-Z --silent
 winget install -e --id qBittorrent.qBittorrent --silent
 
 # work
+winget install --id Microsoft.Office --silent
 winget install -e --id Microsoft.Teams --silent
-winget install "Company Portal" --silent
+winget install "Company Portal" --accept-source-agreements --silent
+
+winget upgrade --all
 
 ## features
-
 Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 
