@@ -15,14 +15,17 @@ Remove-WindowsCapability -Online -Name Hello.Face.20134~~~~0.0.1.0
 Remove-WindowsCapability -Online -Name MathRecognizer~~~~0.0.1.0
 
 ## windows settings
-Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Clipboard -Name EnableClipboardHistory -Value 1 -Type Dword -Force
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name Hidden -Value 1 -Type Dword -Force
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0 -Type Dword -Force
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MultiTaskingAltTabFilter -Value 3 -Type Dword -Force
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0 -Type Dword -Force
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value 0 -Type Dword -Force
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -Type Dword -Force # auto arrange icons
+Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Clipboard -Name EnableClipboardHistory -Value 1 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name Hidden -Value 1 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MultiTaskingAltTabFilter -Value 3 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name TaskbarMn -Value 0 -Type DWord -Force # teams
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchBoxTaskbarMode -Value 0 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value 0 -Type DWord -Force
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\Shell\Bags\1\Desktop -Name FFlags -Value 1075839525 -Type DWord -Force # auto arrange icons
 
 stop-process -name explorer –force
 
@@ -42,6 +45,7 @@ winget source update
 winget install -e --id Logitech.Options --accept-source-agreements --silent
 
 winget uninstall cortana
+winget uninstall Clipchamp
 winget uninstall --id Microsoft.OneDrive
 winget uninstall --id Microsoft.OneDriveSync_8wekyb3d8bbwe
 winget uninstall --id Microsoft.Messaging_8wekyb3d8bbwe
@@ -67,6 +71,7 @@ winget uninstall --id Microsoft.ZuneMusic_8wekyb3d8bbwe
 winget uninstall --id Microsoft.ZuneVideo_8wekyb3d8bbwe
 winget uninstall --id microsoft.windowscommunicationsapps_8wekyb3d8bbwe
 winget uninstall --id MicrosoftTeams_8wekyb3d8bbwe
+# winget uninstall --id MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
 
 ## chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
