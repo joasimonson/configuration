@@ -6,7 +6,7 @@ Import-Module oh-my-posh
 #Set-PoshPrompt -Theme agnoster
 
 ## completions
-Import-Module DockerCompletion
+# Import-Module DockerCompletion
 
 function DeleteAllGoneBranches() {
 	git rprune
