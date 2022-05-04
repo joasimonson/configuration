@@ -72,7 +72,7 @@ winget uninstall --id Microsoft.ZuneMusic_8wekyb3d8bbwe
 winget uninstall --id Microsoft.ZuneVideo_8wekyb3d8bbwe
 winget uninstall --id microsoft.windowscommunicationsapps_8wekyb3d8bbwe
 winget uninstall --id MicrosoftTeams_8wekyb3d8bbwe
-# winget uninstall --id MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
+winget uninstall --id MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
 
 ## chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -90,9 +90,9 @@ powershell -Command "Start-Process pwsh -Verb RunAs"
 
 # posh
 choco install cascadiacodepl -y
+winget install oh-my-posh
 
 Install-Module posh-git -Scope CurrentUser -Force
-Install-Module oh-my-posh -Scope CurrentUser -Force
 Install-Module -Name PSReadLine -Scope CurrentUser -Force -SkipPublisherCheck
 
 # profiles
@@ -221,7 +221,7 @@ winget upgrade --all
 Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 
-wsl --install
+wsl --install -d Ubuntu
 
 # after wsl
 winget install -e --id Docker.DockerDesktop --silent
