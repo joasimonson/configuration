@@ -86,7 +86,7 @@ winget install --id Microsoft.Powershell --silent
 powershell -Command "Start-Process pwsh -Verb RunAs"
 
 # completions
-Install-Module DockerCompletion -Scope CurrentUser -Force
+# Install-Module DockerCompletion -Scope CurrentUser -Force
 
 # posh
 choco install cascadiacodepl -y
