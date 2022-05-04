@@ -1,7 +1,7 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
             "command": "unbound",
@@ -24,7 +24,7 @@
             "keys": "ctrl+shift+5"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "copy",
                 "singleLine": false
@@ -44,7 +44,7 @@
             "keys": "ctrl+v"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "newTab",
                 "index": 0
@@ -72,9 +72,9 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "profiles": 
+    "profiles":
     {
-        "defaults": 
+        "defaults":
         {
             "backgroundImageAlignment": "center",
             "backgroundImageOpacity": 0.10000000000000001,
@@ -88,7 +88,7 @@
             "startingDirectory": "C:\\dev\\",
             "useAcrylic": true
         },
-        "list": 
+        "list":
         [
             {
                 "background": "#1A1222",
@@ -129,7 +129,7 @@
             }
         ]
     },
-    "schemes": 
+    "schemes":
     [
         {
             "background": "#0C0C0C",
