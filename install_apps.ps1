@@ -204,6 +204,7 @@ winget install -e --id icsharpcode.ILSpy --silent
 ## tools
 winget install -e --id Foxit.FoxitReader --silent
 winget install -e --id VideoLAN.VLC --silent
+winget install -e --id Samsung.DeX
 
 # optional
 winget install -e --id WinDirStat.WinDirStat --silent
