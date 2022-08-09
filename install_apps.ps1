@@ -196,6 +196,8 @@ winget install -e --id ScooterSoftware.BeyondCompare4 --silent
 winget install --id Microsoft.VisualStudioCode --silent
 winget install --id Microsoft.VisualStudio.2022.Professional --silent
 winget install --id Microsoft.dotnet --silent
+# winget install --id AdoptOpenJDK.OpenJDK.11 -e
+# winget install --id Google.AndroidStudio -e
 
 # optional
 winget install -e --id Postman.Postman --silent
