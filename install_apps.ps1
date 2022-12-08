@@ -198,6 +198,7 @@ winget install --id Microsoft.VisualStudio.2022.Professional --silent
 winget install --id Microsoft.dotnet --silent
 # winget install --id AdoptOpenJDK.OpenJDK.11 -e
 # winget install --id Google.AndroidStudio -e
+# winget install -e --id ShiningLight.OpenSSL
 
 # optional
 winget install -e --id Postman.Postman --silent
