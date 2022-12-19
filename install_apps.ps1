@@ -199,6 +199,7 @@ winget install --id Microsoft.dotnet --silent
 # winget install --id AdoptOpenJDK.OpenJDK.11 -e
 # winget install --id Google.AndroidStudio -e
 # winget install -e --id ShiningLight.OpenSSL
+# choco install scrcpy -y
 
 # optional
 winget install -e --id Postman.Postman --silent
