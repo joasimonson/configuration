@@ -209,6 +209,7 @@ winget install -e --id icsharpcode.ILSpy --silent
 winget install -e --id Foxit.FoxitReader --silent
 winget install -e --id VideoLAN.VLC --silent
 winget install -e --id Samsung.DeX
+winget install -e --id Notion.Notion
 
 # optional
 winget install -e --id WinDirStat.WinDirStat --silent
