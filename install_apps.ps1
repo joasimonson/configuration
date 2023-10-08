@@ -40,6 +40,9 @@ powercfg -x -standby-timeout-dc 0
 powercfg -x -hibernate-timeout-ac 0
 powercfg -x -hibernate-timeout-dc 0
 
+## winget
+Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
+
 winget source update
 
 ## hardare
