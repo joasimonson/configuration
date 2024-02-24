@@ -122,12 +122,14 @@ npm i -g iisexpress-proxy
 npm i -g rimraf
 
 ## git
-winget install -e --id Git.Git --silent
-# refresh
+winget install -e --id Git.Git --silent # refresh after
+
+# default config
 $username = "joasimonson"
 $email = "joasimonson@hotmail.com"
 git config --global user.name $username
 git config --global user.email $email
+git config --global core.editor "code --wait"
 
 # git linux tools
 $linuxTools = "$env:programfiles\Git\usr\bin"
