@@ -138,6 +138,14 @@ $linuxTools = "$env:programfiles\Git\usr\bin"
 # git aliases
 git config --global alias.rprune "remote prune origin"
 
+# git ssh - assign commits
+ssh-keygen -t rsa -b 4096 -C "joasimonson@hotmail.com"
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+git config --global gpg.format ssh
+git config --global user.signingkey ~/.ssh/id_rsa.pub
+git config --global commit.gpgsign true
+
 # git gpg - assign commits
 winget install -e --id GnuPG.GnuPG --silent
 # refresh
