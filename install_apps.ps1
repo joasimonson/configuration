@@ -113,7 +113,7 @@ curl -o $windowsTerminalProfilePath\settings.json https://raw.githubusercontent.
 curl -o $PROFILE https://raw.githubusercontent.com/joasimonson/configuration/main/terminal/Microsoft.PowerShell_profile.ps1
 
 ## node - npm
-choco install nvm -y
+winget install --id=CoreyButler.NVMforWindows -e
 # refresh
 nvm install lts
 nvm use lts
